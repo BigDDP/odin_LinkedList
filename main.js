@@ -29,44 +29,8 @@ class LinkedList {
         this.head = newNode;
     }
 
-    insert(value, afterValue) {
-        let current = this.head;
-        while (current) {
-            if (current.value === afterValue) {
-            let newNode = new Node(value);
-            newNode.next = current.next;
-            current.next = newNode;
-            return;
-            }
-            current = current.next;
-        }
-        console.log("Value not found in list");
-    }
-
-    delete(value) {
-        if (!this.head) {
-            console.log("List is empty, no element to delete");
-            return;
-        }
-        if (this.head.value === value) {
-            this.head = this.head.next;
-            return;
-        }
-        let prev = null;
-        let current = this.head;
-        while (current && current.value !== value) {
-            prev = current;
-            current = current.next;
-        }
-        if (!current) {
-            console.log("Value not found in list");
-            return;
-        }
-        prev.next = current.next;
-    }
-
-    insertAt(index) {
-
+    insertAt(index, ...values) {
+    
     }
 
     removeAt(index) {
