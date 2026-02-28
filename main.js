@@ -62,19 +62,41 @@ class LinkedList {
         prevLoopNode.nextNode = indexNextNode;
     }
 
-    // removeAt(index) {
-    //     return;
-    // }
+    removeAt(index) {
+        let indexPrevNode;
+        let currentNode = this.head;
+        let indexNextNode;
+
+        for (let i = 1; i < index; i++) {
+
+            currentNode = currentNode.nextNode;
+
+            if (!currentNode) throw new RangeError("Error Text");
+            if ( i === index - 2 ) {
+                indexPrevNode = currentNode
+            };
+            if ( i === index - 1 ) {
+                indexNextNode = currentNode.nextNode
+            };
+        }
+        
+        indexPrevNode.nextNode = indexNextNode
+    }
+
+    pop() {
+        let head = list.head
+        list.head = head.nextNode
+    }
 
     getHead() {
-        console.log("HeadNode: ", this.head)
+        console.log("6. HeadNode: ", this.head)
     }
 
     getTail() {
         let current = this.head;
 
         while (current) {
-            if (current.nextNode === null) console.log("TailNode: ", current);
+            if (current.nextNode === null) console.log("7. TailNode: ", current);
             current = current.nextNode;
         }
     }
@@ -89,12 +111,8 @@ class LinkedList {
             if (!currentNode) throw new RangeError("Error Text");
         }
 
-        console.log(`At index(${index}) returns`, currentNode)
+        console.log(`8. At index(${index}) returns`, currentNode)
     }
-
-    // pop() {
-    //     return;
-    // }
 
     contains(value) {
         let current = this.head
@@ -109,7 +127,7 @@ class LinkedList {
             current = current.nextNode;
         }
 
-        console.log(`Value "${value}" exists in List? `, exists)
+        console.log(`4. Value "${value}" exists in List? `, exists)
     }
 
     findIndex(value) {
@@ -130,7 +148,7 @@ class LinkedList {
             current = current.nextNode 
         }
         
-        console.log(`Item index for value "${value}" `, index)
+        console.log(`5. Item index for value "${value}" `, index)
     }
 
     size() {
@@ -177,9 +195,6 @@ list.insertAt(2, 35, 40);
 list.toString("3. Expected: 5 -> 10 -> 35 -> 40 -> 20 -> 30 -> 35 -> null");
 list.size(); // 7
 
-// list.removeAt(5);
-// list.size("Expected: 5 -> 10 -> 35 -> 15 -> 30 -> 35 -> null");
-
 list.contains(35) // true;
 list.contains(15) // false;
 
@@ -196,5 +211,10 @@ list.at(4) // Expected: 40
 list.at(6) // Expected: 30
 // list.at(9) // Expected: Error
 
-// list.pop()
-// list.size("Expected: 5 -> 10 -> 35 -> 15 -> 30 -> null");
+list.removeAt(5);
+list.toString("9. Expected: 5 -> 10 -> 35 -> 40 -> 30 -> 35 -> null");
+list.size(); // 6
+
+list.pop()
+list.toString("10. Expected: 10 -> 35 -> 40 -> 30 -> 35 -> null");
+list.size(); // 5
