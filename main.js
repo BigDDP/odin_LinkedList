@@ -1,3 +1,5 @@
+console.log("Hello");
+
 class Node {
     constructor(value) {
         this.value = value;
@@ -17,60 +19,87 @@ class LinkedList {
             return;
         }
         let current = this.head;
-        while (current.next) {
-            current = current.next;
+        while (current.nextNode) {
+            current = current.nextNode;
         }
-        current.next = newNode;
+        current.nextNode = newNode;
     }
 
     prepend(value) {
         let newNode = new Node(value);
-        newNode.next = this.head;
+
+        if (!this.head) {
+            this.head = newNode;
+            return;
+        }
+
+        newNode.nextNode = this.head;
         this.head = newNode;
     }
 
     insertAt(index, ...values) {
-    
+        let indexNextNode;
+        let currentNode = this.head;
+
+        for (let i = 1; i < index; i++) {
+
+            currentNode = currentNode.nextNode;
+
+            if (!currentNode) throw new RangeError("Error Text");
+            if ( i === index - 1 ) {
+                indexNextNode = currentNode.nextNode
+            };
+        }
+
+        let prevLoopNode = currentNode
+
+        for ( let i = 0; i < values.length; i++ ) {
+            let newNode = new Node(values.at(i));
+            prevLoopNode.nextNode = newNode
+            prevLoopNode = newNode;
+        }
+
+        prevLoopNode.nextNode = indexNextNode;
     }
 
-    removeAt(index) {
+    // removeAt(index) {
+    //     return;
+    // }
 
-    }
+    // getHead() {
+    //     return;
+    // }
 
-    head() {
+    // getTail() {
+    //     return;
+    // }
 
-    }
+    // at(index) {
+    //     return;
+    // }
 
-    tail() {
+    // pop() {
+    //     return;
+    // }
 
-    }
+    // contains(value) {
+    //     return;
+    // }
 
-    at(index) {
+    // findIndex(value) {
+    //     return;
+    // }
 
-    }
+    // size() {
+    //     return;
+    // }
 
-    pop() {
-
-    }
-
-    contains(value) {
-
-    }
-
-    findIndex(value) {
-
-    }
-
-    toString() {
-
-    }
-
-    size(msg) {
+    toString(msg) {
         let current = this.head;
         let result = "";
         while (current) {
             result += current.value + " -> ";
-            current = current.next;
+            current = current.nextNode;
         }
         console.log(msg)
         console.log("Result: ", result + "null");
@@ -84,35 +113,32 @@ const list = new LinkedList();
 list.append(10);
 list.append(20);
 list.append(30);
-list.size("1. Expected: 10 -> 20 -> 30 -> null");
+list.append(35);
+list.toString("1. Expected: 10 -> 20 -> 30 -> 35 -> null");
 
 list.prepend(5);
-list.size("2. Expected: 5 -> 10 -> 20 -> 30 -> null");
+list.toString("2. Expected: 5 -> 10 -> 20 -> 30 -> 35 -> null");
 
-list.insertAt(15, 10);
-list.size("3. Expected: 5 -> 10 -> 15 -> 20 -> 30 -> null");
+list.insertAt(2, 35, 40);
+list.toString("3. Expected: 5 -> 10 -> 35 -> 40 -> 20 -> 30 -> 35 -> null");
 
-list.delete(20);
-list.size("4. Expected: 5 -> 10 -> 15 -> 30 -> null");
+// size();
 
-// list.insertAt(index)
-// list.size(". Expected: -> null");
+// list.removeAt(5);
+// list.size("Expected: 5 -> 10 -> 35 -> 15 -> 30 -> 35 -> null");
 
-// list.removeAt(index)
-// list.size(". Expected: -> null");
+// list.contains(15) // true;
+// list.contains(26) // false;
 
-// list.head()
-// list.size(". Expected: -> null");
+// list.findIndex(15) // Expected: 4
+// list.findIndex(35) // Expected: 3
+// list.findIndex(20) // Expected: -1
 
-// list.tail()
-// list.size(". Expected: -> null");
+// list.head() // Expected: 5
 
-// list.at(index)
+// list.tail() // Expected: 35
+
+// list.at(4) // Expected: 15
 
 // list.pop()
-
-// list.contains(value)
-
-// list.findIndex(value)
-
-// list.toString()
+// list.size("Expected: 5 -> 10 -> 35 -> 15 -> 30 -> null");
